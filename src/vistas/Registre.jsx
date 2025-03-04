@@ -1,48 +1,21 @@
-import React, { useState, useEffect } from 'react';
-
-const cargarUsuarios = () => {
-  const usuariosGuardados = JSON.parse(localStorage.getItem('dades_usuaris'));
-  if (usuariosGuardados) {
-    return usuariosGuardados;
-  } else {
-    return []; 
-  }
-};
+import React from 'react';
 
 const RegistroUsuarios = () => {
-  const [nombre, setNombre] = useState('');
-  const [grupo, setGrupo] = useState('');
-  const [usuarios, setUsuarios] = useState(cargarUsuarios());
-  const [mensaje, setMensaje] = useState('');
-  
-  const manejarNombre = (event) => {
-    setNombre(event.target.value);
-  };
-
-  const manejarGrupo = (event) => {
-    setGrupo(event.target.value);
-  };
-
-  const guardarUsuariosEnLocalStorage = (usuariosActualizados) => {
-    localStorage.setItem('dades_usuaris', JSON.stringify(usuariosActualizados));
-  };
-
   const manejarRegistro = (event) => {
     event.preventDefault();
-    
+
+    const nombre = document.querySelector('#nombre').value;  
+    const grupo = document.querySelector('#grupo').value;    
+    const mensajeElement = document.querySelector('#mensaje');
+
     if (nombre && grupo) {
       const nuevoUsuario = { id: Date.now().toString(), nombre, grupo };
-      const usuariosActualizados = [...usuarios, nuevoUsuario];
+      mensajeElement.innerHTML = '¡Registro exitoso!';
 
-      setUsuarios(usuariosActualizados); 
-      guardarUsuariosEnLocalStorage(usuariosActualizados);
-
-      setMensaje(`¡Registro exitoso!`);
-
-      setNombre('');
-      setGrupo('');
+      document.querySelector('#nombre').value = '';
+      document.querySelector('#grupo').value = '';
     } else {
-      setMensaje('Rellenar todos los campos.');
+      mensajeElement.innerHTML = 'Rellenar todos los campos.';
     }
   };
 
@@ -51,10 +24,10 @@ const RegistroUsuarios = () => {
       <h2>Registre d'Usuaris</h2>
       <form onSubmit={manejarRegistro}>
         <div>
-          <label>Nombre:</label>
+          <label>Nom:</label>
           <input 
+            id="nombre"
             type="text" 
-            value={nombre} 
             placeholder="Introduce tu nombre" 
             required 
           />
@@ -62,8 +35,8 @@ const RegistroUsuarios = () => {
         <div>
           <label>Grupo:</label>
           <input 
+            id="grupo"
             type="text" 
-            value={grupo} 
             placeholder="Introduce tu grupo" 
             required 
           />
@@ -71,14 +44,7 @@ const RegistroUsuarios = () => {
         <button type="submit">Registrar</button>
       </form>
 
-      {mensaje && <p>{mensaje}</p>}
-
-      <h3>Usuarios Registrados:</h3>
-      <ul>
-        {usuarios.map((usuario) => (
-          <li key={usuario.id}>{usuario.nombre} - {usuario.grupo}</li>
-        ))}
-      </ul>
+      <p id="mensaje"></p>
     </div>
   );
 };

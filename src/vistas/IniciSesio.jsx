@@ -1,40 +1,35 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const IniciSesio = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
-
     const handleLogin = () => {
-        const usuaris = JSON.parse(localStorage.getItem('dades_usuaris')) || [];
+        const email = document.querySelector('#email').value;
+        const password = document.querySelector('#password').value;
 
+        const usuaris = JSON.parse(localStorage.getItem('dades_usuaris')) || [];
         const usuari = usuaris.find(u => u.email === email && u.password === password);
 
         if (usuari) {
             localStorage.setItem('sessio_usuari', JSON.stringify({ email: usuari.email }));
             window.location.reload();
         } else {
-            setErrorMessage('Usuari o contrasenya incorrectes');
-        }
+document.querySelector('#mensajeError').innerHTML = 'Email o contrasenya incorrectes.';   }
     };
 
     return (
         <div>
             <h2>Iniciar Sessió</h2>
             <input 
+                id="email"
                 type="email" 
                 placeholder="Email" 
-                value={email}
-                onChange={(e) => setEmail(e.target.value)} 
             />
             <input 
+                id="password"
                 type="password" 
                 placeholder="Contrasenya" 
-                value={password}
-                onChange={(e) => setPassword(e.target.value)} 
             />
             <button onClick={handleLogin}>Iniciar Sessió</button>
-            {errorMessage && <p>{errorMessage}</p>}
+            <p id="mensajeError"></p>
         </div>
     );
 };
