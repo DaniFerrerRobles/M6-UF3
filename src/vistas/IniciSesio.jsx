@@ -1,7 +1,7 @@
 import React from 'react';
 
 const IniciSesio = () => {
-    const handleLogin = () => {
+    const login = () => {
         const email = document.querySelector('#email').value;
         const password = document.querySelector('#password').value;
 
@@ -28,7 +28,7 @@ document.querySelector('#mensajeError').innerHTML = 'Email o contrasenya incorre
                 type="password" 
                 placeholder="Contrasenya" 
             />
-            <button onClick={handleLogin}>Iniciar Sessió</button>
+            <button onClick={loginogin}>Iniciar Sessió</button>
             <p id="mensajeError"></p>
         </div>
     );

@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Panell from './vistas/Panell'
 import Menu from './componentes/Menu'
+import Comentarios from './vistas/comentaris'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -11,6 +12,7 @@ function App() {
   return (
     <>
     <Menu />
+    <Comentarios />
     </>
   )
 }
