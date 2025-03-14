@@ -6,12 +6,15 @@ import Panell from './vistas/Panell'
 import Menu from './componentes/Menu'
 import Comentarios from './vistas/comentaris'
 import BarraNavegacio from './componentes/Capcelera'
+import GestioUsuaris from './componentes/GestioUsuaris'
+
 function App() {
   return (
     <>
     <header><BarraNavegacio /></header>
     <Menu />
     <Comentarios />
+    <GestioUsuaris />
     </>
   )
 }
