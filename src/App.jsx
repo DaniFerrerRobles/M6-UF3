@@ -3,13 +3,15 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import Panell from './vistas/Panell'
-
+import Menu from './componentes/Menu'
+import Comentarios from './vistas/comentaris'
+import BarraNavegacio from './componentes/Capcelera'
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-    <Panell />
+    <header><BarraNavegacio /></header>
+    <Menu />
+    <Comentarios />
     </>
   )
 }
