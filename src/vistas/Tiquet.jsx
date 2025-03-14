@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const Tiquet = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
+  const navegar = useNavegar();
+  const ubicacion = useUbicacion();
   const [tiquet, setTiquet] = useState({
     id: '',
     fecha: '',
@@ -28,38 +28,31 @@ const Tiquet = () => {
     }
   }, [tiquetId]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setTiquet({ ...tiquet, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
+  const gestionTiquets = (e) => {
     e.preventDefault();
     const tiquets = JSON.parse(localStorage.getItem('dades_tiquets')) || [];
     if (tiquet.id) {
-      // Actualizar tiquet
       const index = tiquets.findIndex((t) => t.id === tiquet.id);
       tiquets[index] = tiquet;
     } else {
-      // Crear nuevo tiquet
-      tiquet.id = Date.now().toString(); // Generamos un ID único
+      tiquet.id = Date.now().toString();
       tiquets.push(tiquet);
     }
     localStorage.setItem('dades_tiquets', JSON.stringify(tiquets));
-    navigate('/');  // Usamos navigate para redirigir
+    navigate('/');
   };
 
   return (
     <div>
       <h2>{tiquet.id ? 'Editar Tiquet' : 'Nuevo Tiquet'}</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={gestionTiquets}>
         <div>
           <label>ID</label>
           <input
             type="text"
             name="id"
             value={tiquet.id}
-            onChange={handleChange}
+            onChange={i}
             disabled
           />
         </div>
@@ -69,7 +62,7 @@ const Tiquet = () => {
             type="date"
             name="fecha"
             value={tiquet.fecha}
-            onChange={handleChange}
+            onChange={i}
           />
         </div>
         <div>
@@ -78,7 +71,7 @@ const Tiquet = () => {
             type="text"
             name="aula"
             value={tiquet.aula}
-            onChange={handleChange}
+            onChange={i}
           />
         </div>
         <div>
@@ -87,7 +80,7 @@ const Tiquet = () => {
             type="text"
             name="grupo"
             value={tiquet.grupo}
-            onChange={handleChange}
+            onChange={i}
           />
         </div>
         <div>
@@ -96,7 +89,7 @@ const Tiquet = () => {
             type="text"
             name="ordenador"
             value={tiquet.ordenador}
-            onChange={handleChange}
+            onChange={i}
           />
         </div>
         <div>
@@ -105,7 +98,7 @@ const Tiquet = () => {
             type="text"
             name="descripcion"
             value={tiquet.descripcion}
-            onChange={handleChange}
+            onChange={i}
           />
         </div>
         <div>
@@ -114,10 +107,10 @@ const Tiquet = () => {
             type="text"
             name="alumno"
             value={tiquet.alumno}
-            onChange={handleChange}
+            onChange={i}
           />
         </div>
-        <button type="submit">Guardar</button>
+        <button type="submit">Añadir Tiquet</button>
       </form>
     </div>
   );
