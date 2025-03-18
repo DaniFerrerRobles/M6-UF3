@@ -55,10 +55,9 @@ const GestioUsuaris = () => {
                 >
                   <option value="admin">Admin</option>
                   <option value="editor">Editor</option>
-                  <option value="viewer">Viewer</option>
+                  <option value="lector">Lector</option>
                 </select>
               </td>
-              <td>{usuari.permisos.join(', ')}</td>
               <td>
                 <button onClick={() => alert(`Permisos per ${usuari.nom}: ${usuari.permisos.join(', ')}`)}>Mostrar permisos</button>
               </td>

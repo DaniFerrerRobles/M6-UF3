@@ -4,19 +4,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 const Tiquet = () => {
   const navegar = useNavegar();
   const ubicacion = useUbicacion();
-  const [tiquet, setTiquet] = useState({
-    id: '',
-    fecha: '',
-    aula: '',
-    grupo: '',
-    ordenador: '',
-    descripcion: '',
-    alumno: '',
-    resuelto: false,
-    fechaResuelto: null,
+  const [tiquet, setTiquet] = useState({id: '', fecha: '', aula: '', grupo: '', ordenador: '', descripcion: '', alumno: '', resuelto: false, fechaResuelto: null,
   });
-
-  const tiquetId = new URLSearchParams(location.search).get('id');  // Obtenemos el ID si se está editando
 
   useEffect(() => {
     if (tiquetId) {
@@ -44,7 +33,6 @@ const Tiquet = () => {
 
   return (
     <div>
-      <h2>{tiquet.id ? 'Editar Tiquet' : 'Nuevo Tiquet'}</h2>
       <form onSubmit={gestionTiquets}>
         <div>
           <label>ID</label>
