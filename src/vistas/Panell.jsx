@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';  // Importamos useNavigate para navegar
+import { useNavigate } from 'react-router-dom';
 
 const cargarTiquets = () => {
   const tiquetsGuardados = JSON.parse(localStorage.getItem('dades_tiquets'));
@@ -25,7 +25,7 @@ const cargarUsuarios = () => {
 const Panel = () => {
   const [tiquets, setTiquets] = useState(cargarTiquets);
   const [usuarios, setUsuarios] = useState(cargarUsuarios);
-  const navigate = useNavigate();  // Usamos useNavigate en lugar de history
+  const navigate = useNavigate();
 
   const guardarEnLocalStorage = () => {
     localStorage.setItem('dades_tiquets', JSON.stringify(tiquets));
@@ -54,7 +54,7 @@ const Panel = () => {
   return (
     <div>
       <h2>Tiquets Pendientes</h2>
-      <button onClick={() => navigate('/tiquet')}>Nuevo Tiquet</button> {/* Usamos navigate en lugar de history.push */}
+      <button onClick={() => navigate('/tiquet')}>Nuevo Tiquet</button>
       <table>
         <thead>
           <tr>
