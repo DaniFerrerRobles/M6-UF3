@@ -2,10 +2,15 @@
 import React, { useState } from 'react';
 import Panel from '../vistas/Panell';
 
+const dades_Usuaris = [
+  { id: 1, nom: 'Juan Pérez', rol: 'admin', permisos: ['crear', 'editar', 'eliminar'] },
+  { id: 2, nom: 'Maria Gómez', rol: 'editor', permisos: ['editar'] },
+  { id: 3, nom: 'Pedro López', rol: 'viewer', permisos: ['visualitzar'] },
+];
+
 const GestioUsuaris = () => {
   const [usuaris, setUsuaris] = useState(dades_Usuaris);
 
-  // Funció per actualitzar el rol d'un usuari
   const actualitzarRol = (id, nouRol) => {
     setUsuaris(prevUsuaris =>
       prevUsuaris.map(usuari =>
@@ -14,7 +19,6 @@ const GestioUsuaris = () => {
     );
   };
 
-  // Funció per obtenir els permisos d'acord al rol
   const obtenirPermisos = (rol) => {
     switch (rol) {
       case 'admin':
