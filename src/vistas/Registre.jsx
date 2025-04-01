@@ -6,16 +6,16 @@ const RegistroUsuarios = () => {
 
     const nombre = document.querySelector('#nombre').value;  
     const grupo = document.querySelector('#grupo').value;    
-    const mensajeElement = document.querySelector('#mensaje');
+    const mensaje = document.querySelector('#mensaje');
 
     if (nombre && grupo) {
       const nuevoUsuario = { id: Date.now().toString(), nombre, grupo };
-      mensajeElement.innerHTML = '¡Registro exitoso!';
+      mensaje.innerHTML = '¡Registrado correctamente!';
 
       document.querySelector('#nombre').value = '';
       document.querySelector('#grupo').value = '';
     } else {
-      mensajeElement.innerHTML = 'Rellenar todos los campos.';
+      mensaje.innerHTML = 'Hay campos vacíos';
     }
   };
 

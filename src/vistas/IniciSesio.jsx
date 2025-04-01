@@ -11,25 +11,16 @@ const IniciSesio = () => {
         if (usuari) {
             localStorage.setItem('sessio_usuari', JSON.stringify({ email: usuari.email }));
             window.location.reload();
-        } else {
-document.querySelector('#mensajeError').innerHTML = 'Email o contrasenya incorrectes.';   }
+        }
     };
 
     return (
         <div>
             <h2>Iniciar Sessió</h2>
-            <input 
-                id="email"
-                type="email" 
-                placeholder="Email" 
+            <input id="email" type="email" placeholder="Email"/>
+            <input id="password" type="password" placeholder="Contrasenya" 
             />
-            <input 
-                id="password"
-                type="password" 
-                placeholder="Contrasenya" 
-            />
-            <button onClick={loginogin}>Iniciar Sessió</button>
-            <p id="mensajeError"></p>
+            <button onClick={login}>Iniciar Sessió</button>
         </div>
     );
 };
