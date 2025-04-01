@@ -25,9 +25,8 @@ const cargarUsuarios = () => {
 const Panel = () => {
   const [tiquets, setTiquets] = useState(cargarTiquets);
   const [usuarios, setUsuarios] = useState(cargarUsuarios);
-  const navigate = useNavigate();
 
-  const guardarEnLocalStorage = () => {
+  const guardarEnSesion = () => {
     localStorage.setItem('dades_tiquets', JSON.stringify(tiquets));
     localStorage.setItem('dades_usuaris', JSON.stringify(usuarios));
   };
@@ -45,7 +44,7 @@ const Panel = () => {
     });
 
     setTiquets(tiquetsActualizados);
-    guardarEnLocalStorage();
+    guardarEnSesion();
   };
 
   const tiquetsPendientes = tiquets.filter((tiquet) => !tiquet.resuelto);

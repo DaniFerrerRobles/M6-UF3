@@ -5,15 +5,15 @@ import Panel from '../vistas/Panell';
 const dades_Usuaris = [
   { id: 1, nom: 'Juan Pérez', rol: 'admin', permisos: ['crear', 'editar', 'eliminar'] },
   { id: 2, nom: 'Maria Gómez', rol: 'editor', permisos: ['editar'] },
-  { id: 3, nom: 'Pedro López', rol: 'viewer', permisos: ['visualitzar'] },
+  { id: 3, nom: 'Pedro López', rol: 'lector', permisos: ['visualitzar'] },
 ];
 
 const GestioUsuaris = () => {
   const [usuaris, setUsuaris] = useState(dades_Usuaris);
 
   const actualitzarRol = (id, nouRol) => {
-    setUsuaris(prevUsuaris =>
-      prevUsuaris.map(usuari =>
+    setUsuaris(usuaris =>
+      usuaris.map(usuari =>
         usuari.id === id ? { ...usuari, rol: nouRol, permisos: obtenirPermisos(nouRol) } : usuari
       )
     );
@@ -25,7 +25,7 @@ const GestioUsuaris = () => {
         return ['crear', 'editar', 'eliminar'];
       case 'editor':
         return ['editar'];
-      case 'viewer':
+      case 'lector':
         return ['visualitzar'];
       default:
         return [];
@@ -51,7 +51,7 @@ const GestioUsuaris = () => {
               <td>
                 <select
                   value={usuari.rol}
-                  onChange={(e) => actualitzarRol(usuari.id, e.target.value)}
+                  onChange={(e) => actualitzarRol(usuari.id, e.nouRol.value)}
                 >
                   <option value="admin">Admin</option>
                   <option value="editor">Editor</option>
@@ -59,7 +59,7 @@ const GestioUsuaris = () => {
                 </select>
               </td>
               <td>
-                <button onClick={() => alert(`Permisos per ${usuari.nom}: ${usuari.permisos.join(', ')}`)}>Mostrar permisos</button>
+              <button onClick={() => alert(`Permisos per ${usuari.nom}: ${usuari.permisos}`)}>Mostrar permisos</button>
               </td>
             </tr>
           ))}
