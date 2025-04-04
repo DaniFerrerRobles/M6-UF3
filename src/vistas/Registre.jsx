@@ -2,20 +2,17 @@ import React from 'react';
 
 const RegistroUsuarios = () => {
   const manejarRegistro = (event) => {
-    event.preventDefault();
-
-    const nombre = document.querySelector('#nombre').value;  
-    const grupo = document.querySelector('#grupo').value;    
+    const nombre = document.querySelector('#nombre').value;
+    const grupo = document.querySelector('#grupo').value;
+    const email = document.querySelector('#email').value;
+    const contraseña = document.querySelector('#contraseña').value;
     const mensaje = document.querySelector('#mensaje');
 
-    if (nombre && grupo) {
-      const nuevoUsuario = { id: Date.now().toString(), nombre, grupo };
-      mensaje.innerHTML = '¡Registrado correctamente!';
-
-      document.querySelector('#nombre').value = '';
-      document.querySelector('#grupo').value = '';
+    if (nombre && grupo && email && contraseña) {
+      const nuevoUsuario = { id: Date.now().toString(), nombre, grupo, email, contraseña };
+      mensaje.innerHTML = 'Registrado!!!';
     } else {
-      mensaje.innerHTML = 'Hay campos vacíos';
+      mensaje.innerHTML = 'FALTAN CAMPOS POR RELLENAR';
     }
   };
 
@@ -38,6 +35,24 @@ const RegistroUsuarios = () => {
             id="grupo"
             type="text" 
             placeholder="Introduce tu grupo" 
+            required 
+          />
+        </div>
+        <div>
+          <label>Email:</label>
+          <input 
+            id="email"
+            type="email" 
+            placeholder="Introduce tu email" 
+            required 
+          />
+        </div>
+        <div>
+          <label>Contraseña:</label>
+          <input 
+            id="contraseña"
+            type="password" 
+            placeholder="Introduce tu contraseña" 
             required 
           />
         </div>
