@@ -41,7 +41,6 @@ const GestioUsuaris = () => {
             <th>Nom</th>
             <th>Rol</th>
             <th>Permisos</th>
-            <th>Accions</th>
           </tr>
         </thead>
         <tbody>
@@ -58,9 +57,7 @@ const GestioUsuaris = () => {
                   <option value="lector">Lector</option>
                 </select>
               </td>
-              <td>
-              <button onClick={() => alert(`Permisos per ${usuari.nom}: ${usuari.permisos}`)}>Mostrar permisos</button>
-              </td>
+              <td>{usuari.permisos}</td>
             </tr>
           ))}
         </tbody>
