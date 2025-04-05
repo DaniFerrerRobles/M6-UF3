@@ -53,7 +53,6 @@ const Panel = () => {
   return (
     <div>
       <h2>Tiquets Pendientes</h2>
-      <button onClick={() => navigate('/tiquet')}>Nuevo Tiquet</button>
       <table>
         <thead>
           <tr>
