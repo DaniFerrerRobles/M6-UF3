@@ -4,15 +4,18 @@ const RegistroUsuarios = () => {
   const manejarRegistro = (event) => {
     event.preventDefault();
 
+    const nom = document.querySelector('#nom').value;
     const email = document.querySelector('#email').value;
     const contrasena = document.querySelector('#contrasena').value;
     const mensaje = document.querySelector('#mensaje');
 
-    if (email && contrasena) {
+    if (nom && email && contrasena) {
       const nuevoUsuario = {
         id: Date.now().toString(),
+        nom,
         email,
         contrasena,
+        rol: 'usuari'
       };
 
       const usuariosExistentes = JSON.parse(localStorage.getItem('dades_usuaris')) || [];
@@ -44,6 +47,17 @@ const RegistroUsuarios = () => {
           className="form p-4 border shadow mt-5 mx-auto"
           style={{ width: '400px' }}
         >
+          <label htmlFor="nom" className="mt-2 form-label">
+            Nombre:
+          </label>
+          <input
+            id="nom"
+            type="text"
+            className="form-control"
+            placeholder="Tu nombre"
+            required
+          />
+
           <label htmlFor="email" className="mt-2 form-label">
             Email:
           </label>

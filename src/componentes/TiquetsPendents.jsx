@@ -1,35 +1,69 @@
 import React, { useEffect, useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import Comentari from './Comentari';
+import Comentaris from './Comentaris';
 
 const TiquetsPendents = () => {
   const [tiquets, setTiquets] = useState([]);
+  const [mostrarComentari, setMostrarComentari] = useState(null);
+  const [mostrarComentaris, setMostrarComentaris] = useState(null);
 
   useEffect(() => {
-    const dades = JSON.parse(localStorage.getItem('dades_tiquets')) || [];
-    const pendents = dades.filter(t => !t.resuelto);
-    setTiquets(pendents);
+    const dadesGuardades = JSON.parse(localStorage.getItem('dades_tiquets')) || [];
+
+    if (dadesGuardades.length === 0) {
+      const ejemplo = [
+        {
+          id: 1,
+          fecha: new Date().toLocaleDateString(),
+          aula: "Aula 101",
+          grupo: "1º DAW",
+          ordenador: "PC-05",
+          descripcion: "No enciende la pantalla.",
+          alumno: "Juan Pérez",
+          resuelto: false,
+          comentarios: []
+        },
+      ];
+      localStorage.setItem('dades_tiquets', JSON.stringify(ejemplo));
+      setTiquets(ejemplo);
+    } else {
+      const pendents = dadesGuardades.filter(t => !t.resuelto);
+      setTiquets(pendents);
+    }
   }, []);
 
-  const marcarComoResuelto = (id) => {
-    const actualizados = tiquets.map((tiquet) =>
-      tiquet.id === id ? { ...tiquet, resuelto: true, fechaResuelto: new Date().toLocaleDateString() } : tiquet
-    );
+  const marcarResuelto = (id) => {
+    const actualizados = JSON.parse(localStorage.getItem('dades_tiquets')) || [];
+    const nuevos = actualizados.map(t => {
+      if (t.id === id) {
+        return { ...t, resuelto: true, fechaResuelto: new Date().toLocaleDateString() };
+      }
+      return t;
+    });
 
-    const tiquetsTotales = JSON.parse(localStorage.getItem('dades_tiquets')) || [];
-    const nuevosTiquets = tiquetsTotales.map(t =>
-      t.id === id ? { ...t, resuelto: true, fechaResuelto: new Date().toLocaleDateString() } : t
-    );
-
-    localStorage.setItem('dades_tiquets', JSON.stringify(nuevosTiquets));
-    setTiquets(actualizados.filter(t => !t.resuelto));
+    localStorage.setItem('dades_tiquets', JSON.stringify(nuevos));
+    setTiquets(nuevos.filter(t => !t.resuelto));
   };
 
   return (
-    <div>
-      <h2>Tiquets Pendientes</h2>
-      <table border="1">
+    <main className="container mt-5">
+      <h2>Tickets pendientes</h2>
+      <table className="table mt-4">
         <thead>
           <tr>
-            <th>ID</th><th>Fecha</th><th>Aula</th><th>Grupo</th><th>Ordenador</th><th>Descripción</th><th>Alumno</th><th>Acción</th>
+            <th>Código</th>
+            <th>Fecha</th>
+            <th>Aula</th>
+            <th>Grupo</th>
+            <th>Ordenador</th>
+            <th>Descripción</th>
+            <th>Alumno</th>
+            <th>Resolver</th>
+            <th>Comentario</th>
+            <th>Ver</th>
+            <th>Eliminar</th>
           </tr>
         </thead>
         <tbody>
@@ -42,12 +76,46 @@ const TiquetsPendents = () => {
               <td>{t.ordenador}</td>
               <td>{t.descripcion}</td>
               <td>{t.alumno}</td>
-              <td><button onClick={() => marcarComoResuelto(t.id)}>Resolver</button></td>
+              <td>
+                <button className="btn btn-success" onClick={() => marcarResuelto(t.id)} title="Resolver ticket">
+                  Resolver
+                </button>
+              </td>
+              <td>
+                <button className="btn btn-warning" title="Añadir comentario" onClick={() => setMostrarComentari(t.id)}>
+                  <i className="bi bi-pencil"></i>
+                </button>
+              </td>
+              <td>
+                <button className="btn btn-info" title="Ver comentarios" onClick={() => setMostrarComentaris(t.id)}>
+                  <i className="bi bi-chat-left-text"></i>
+                </button>
+              </td>
+              <td>
+                <button className="btn btn-danger" title="Eliminar ticket">
+                  <i className="bi bi-trash3"></i>
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
-    </div>
+
+      {mostrarComentari && (
+        <div className="mt-4">
+          <h4>Añadir comentario al ticket {mostrarComentari}</h4>
+          <Comentari ticketId={mostrarComentari} onClose={() => setMostrarComentari(null)} />
+        </div>
+      )}
+
+      {mostrarComentaris && (
+        <div className="mt-4">
+          <h4>Comentarios del ticket #{mostrarComentaris}</h4>
+          <Comentaris ticketId={mostrarComentaris} />
+          <button className="btn btn-secondary mt-2" onClick={() => setMostrarComentaris(null)}>Cerrar</button>
+        </div>
+      )}
+    </main>
   );
 };
 

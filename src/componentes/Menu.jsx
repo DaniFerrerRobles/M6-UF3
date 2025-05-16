@@ -4,6 +4,7 @@ import Panell from '../vistas/Panell';
 import RegistroUsuarios from '../vistas/Registre';
 import IniciSesio from '../vistas/IniciSesio';
 import Logout from '../vistas/CierreSesio';
+import GestioUsuaris from '../vistas/GestioUsuaris';
 
 const Menu = () => {
   return (
@@ -15,9 +16,10 @@ const Menu = () => {
               <span className="navbar-brand">Gestión de incidencias FPLLEFIA</span>
 
               <div>
-                <Link to="/panell" className="btn btn-secondary ms-2">PANEL</Link>
+                <Link to="/" className="btn btn-secondary ms-2">PANEL</Link>
                 <Link to="/iniciSesio" className="btn btn-secondary ms-2">LOGIN</Link>
                 <Link to="/registre" className="btn btn-secondary ms-2">REGISTRO</Link>
+                <Link to="/gestioUsuaris" className="btn btn-secondary ms-2">GESTIÓN USUARIOS</Link>
                 <Link to="/logout" className="btn btn-danger ms-2">Cerrar Sesión</Link>
               </div>
             </div>
@@ -28,8 +30,9 @@ const Menu = () => {
           <Routes>
             <Route path="/iniciSesio" element={<IniciSesio />} />
             <Route path="/registre" element={<RegistroUsuarios />} />
-            <Route path="/panell" element={<Panell />} />
+            <Route path="/" element={<Panell />} />
             <Route path="/logout" element={<Logout />} />
+            <Route path="/gestioUsuaris" element={<GestioUsuaris />} />
           </Routes>
         </main>
       </div>
