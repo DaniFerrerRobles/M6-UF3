@@ -13,8 +13,6 @@ function App() {
     <>
     <header><BarraNavegacio /></header>
     <Menu />
-    <Comentarios />
-    <GestioUsuaris />
     </>
   )
 }
