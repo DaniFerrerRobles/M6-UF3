@@ -10,7 +10,7 @@ const IniciSesio = () => {
     const usuari = usuaris.find(usuari => usuari.email === email && usuari.password === password);
 
     if (usuari) {
-      localStorage.setItem(JSON.stringify({ email: usuari.email }));
+      localStorage.setItem('usuari_actual', JSON.stringify({ email: usuari.email }));
       setMensaje('Iniciaste sesión correctamente.');
     } else {
       setMensaje('Correo/contraseña incorrecto.');
