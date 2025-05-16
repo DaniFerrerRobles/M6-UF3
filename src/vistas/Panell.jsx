@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import Comentarios from './comentaris';
 const cargarTiquets = () => {
   const tiquetsGuardados = JSON.parse(localStorage.getItem('dades_tiquets'));
   if (tiquetsGuardados) {
@@ -115,6 +115,8 @@ const Panel = () => {
           ))}
         </tbody>
       </table>
+      <Comentarios />
+
     </div>
   );
 };
