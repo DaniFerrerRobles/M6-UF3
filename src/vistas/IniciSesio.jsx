@@ -20,7 +20,10 @@ const IniciSesio = () => {
       localStorage.setItem('usuari_actual', JSON.stringify({ email: usuari.email, rol: usuari.rol }));
       setMensaje('Sesión iniciada correctamente.');
       setColor('text-success');
-      navigate('/panell');
+      
+      setTimeout(() => {
+        navigate('/panell');
+      }, 2000);
     } else {
       setMensaje('Correo o contraseña incorrectos');
       setColor('text-danger');
