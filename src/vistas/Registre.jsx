@@ -18,7 +18,7 @@ const RegistroUsuarios = () => {
         nom,
         email,
         contrasena,
-        rol: 'usuari'
+        rol: 'administrador',
       };
 
       const usuariosExistentes = JSON.parse(localStorage.getItem('dades_usuaris')) || [];
