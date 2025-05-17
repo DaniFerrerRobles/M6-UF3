@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import Comentari from './Comentari';
 import Comentaris from './Comentaris';
+import TiquetsResolts from './TiquetsResolts';
 
 const TiquetsPendents = () => {
   const [tiquets, setTiquets] = useState([]);
@@ -92,7 +93,7 @@ const TiquetsPendents = () => {
                 </button>
               </td>
               <td>
-                <button className="btn btn-danger" title="Eliminar ticket">
+                <button className="btn btn-danger" title="Eliminar ticket" onClick={() => eliminarTiquet(t.id)}>
                   <i className="bi bi-trash3"></i>
                 </button>
               </td>
@@ -104,13 +105,13 @@ const TiquetsPendents = () => {
       {mostrarComentari && (
         <div className="mt-4">
           <h4>Añadir comentario al ticket {mostrarComentari}</h4>
-          <Comentari ticketId={mostrarComentari} onClose={() => setMostrarComentari(null)} />
+          <Comentari ticketId={mostrarComentari} />
         </div>
       )}
 
       {mostrarComentaris && (
         <div className="mt-4">
-          <h4>Comentarios del ticket #{mostrarComentaris}</h4>
+          <h4>Comentarios del ticket {mostrarComentaris}</h4>
           <Comentaris ticketId={mostrarComentaris} />
           <button className="btn btn-secondary mt-2" onClick={() => setMostrarComentaris(null)}>Cerrar</button>
         </div>

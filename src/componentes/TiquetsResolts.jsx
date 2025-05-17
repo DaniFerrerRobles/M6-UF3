@@ -20,10 +20,6 @@ const TiquetsResolts = () => {
     setTiquets(nuevosDatos.filter(t => t.resuelto));
   };
 
-  const verComentarios = (id) => {
-    setMostrarComentaris(mostrarComentaris === id ? null : id);
-  };
-
   return (
     <main className="container mt-5">
       <h2>Tickets resueltos</h2>
@@ -44,38 +40,50 @@ const TiquetsResolts = () => {
         </thead>
         <tbody>
           {tiquets.map(t => (
-            <React.Fragment key={t.id}>
-              <tr>
-                <td>{t.id}</td>
-                <td>{t.fecha}</td>
-                <td>{t.fechaResuelto}</td>
-                <td>{t.aula}</td>
-                <td>{t.grupo}</td>
-                <td>{t.ordenador}</td>
-                <td>{t.descripcion}</td>
-                <td>{t.alumno}</td>
-                <td>
-                  <button className="btn btn-info" title="Ver comentarios" onClick={() => verComentarios(t.id)}>
-                    <i className="bi bi-chat-left-text"></i>
-                  </button>
-                </td>
-                <td>
-                  <button className="btn btn-danger" title="Eliminar ticket" onClick={() => eliminarTiquet(t.id)}>
-                    <i className="bi bi-trash3"></i>
-                  </button>
-                </td>
-              </tr>
-              {mostrarComentaris === t.id && (
-                <tr>
-                  <td colSpan="10">
-                    <Comentaris ticketId={t.id} />
-                  </td>
-                </tr>
-              )}
-            </React.Fragment>
+            <tr key={t.id}>
+              <td>{t.id}</td>
+              <td>{t.fecha}</td>
+              <td>{t.fechaResuelto}</td>
+              <td>{t.aula}</td>
+              <td>{t.grupo}</td>
+              <td>{t.ordenador}</td>
+              <td>{t.descripcion}</td>
+              <td>{t.alumno}</td>
+              <td>
+                <button
+                  className="btn btn-info"
+                  title="Ver comentarios"
+                  onClick={() => setMostrarComentaris(t.id)}
+                >
+                  <i className="bi bi-chat-left-text"></i>
+                </button>
+              </td>
+              <td>
+                <button
+                  className="btn btn-danger"
+                  title="Eliminar ticket"
+                  onClick={() => eliminarTiquet(t.id)}
+                >
+                  <i className="bi bi-trash3"></i>
+                </button>
+              </td>
+            </tr>
           ))}
         </tbody>
       </table>
+
+      {mostrarComentaris && (
+        <div className="mt-4">
+          <h4>Comentarios del ticket {mostrarComentaris}</h4>
+          <Comentaris ticketId={mostrarComentaris} />
+          <button
+            className="btn btn-secondary mt-2"
+            onClick={() => setMostrarComentaris(null)}
+          >
+            Cerrar
+          </button>
+        </div>
+      )}
     </main>
   );
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Comentari = ({ ticketId, onComentariAfegit }) => {
+const Comentari = ({ticketId}) => {
   const añadirComentario = () => {
     const autor = document.querySelector('#autor').value;
     const comentario = document.querySelector('#comentario').value;
@@ -21,7 +21,9 @@ const Comentari = ({ ticketId, onComentariAfegit }) => {
     document.querySelector('#autor').value = '';
     document.querySelector('#comentario').value = '';
 
-    if (onComentariAfegit) onComentariAfegit();
+    if (añadirComentario){
+        añadirComentario();
+    }
   };
 
   return (
