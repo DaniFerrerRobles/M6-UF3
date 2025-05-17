@@ -88,10 +88,11 @@ const TiquetsPendents = () => {
               <td>{t.descripcion}</td>
               <td>{t.alumno}</td>
               <td>
-                <button className="btn btn-success" onClick={() => marcarResuelto(t.id)} title="Resolver ticket">
+                <button className="btn btn-success" onClick={() => marcarResuelto(t.id)} title={esAdmin ? "Resolver ticket" : "Solo el administrador puede resolver"} disabled={!esAdmin}>
                   Resolver
                 </button>
               </td>
+
               <td>
                 <button className="btn btn-warning" title="Añadir comentario" onClick={() => setMostrarComentari(t.id)}>
                   <i className="bi bi-pencil"></i>
