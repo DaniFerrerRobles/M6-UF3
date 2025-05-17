@@ -16,19 +16,30 @@ const TiquetsPendents = () => {
     const dadesGuardades = JSON.parse(localStorage.getItem('dades_tiquets')) || [];
 
     if (dadesGuardades.length === 0) {
-      const ejemplo = [
-        {
-          id: 1,
-          fecha: new Date().toLocaleDateString(),
-          aula: "Aula 101",
-          grupo: "1º DAW",
-          ordenador: "PC-05",
-          descripcion: "No enciende la pantalla.",
-          alumno: "Juan Pérez",
-          resuelto: false,
-          comentarios: []
-        },
-      ];
+const ejemplo = [
+  {
+    id: 1,
+    fecha: new Date().toLocaleDateString(),
+    aula: "Aula 101",
+    grupo: "1º DAW",
+    ordenador: "PC-05",
+    descripcion: "No enciende la pantalla.",
+    alumno: "Juan Pérez",
+    resuelto: false,
+    comentarios: []
+  },
+  {
+    id: 2,
+    fecha: new Date().toLocaleDateString(),
+    aula: "Aula 202",
+    grupo: "2º ASIX",
+    ordenador: "PC-12",
+    descripcion: "El teclado no responde.",
+    alumno: "Laura Gómez",
+    resuelto: false,
+    comentarios: []
+  }
+];
       localStorage.setItem('dades_tiquets', JSON.stringify(ejemplo));
       setTiquets(ejemplo);
     } else {
