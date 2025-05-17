@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const IniciSesio = () => {
   const [mensaje, setMensaje] = useState('');
   const [color, setColor] = useState('');
+  const navigate = useNavigate();
 
   const login = (event) => {
     event.preventDefault();
@@ -15,9 +17,10 @@ const IniciSesio = () => {
     );
 
     if (usuari) {
-      localStorage.setItem('usuari_actual', JSON.stringify({ email: usuari.email }));
+      localStorage.setItem('usuari_actual', JSON.stringify({ email: usuari.email, rol: usuari.rol }));
       setMensaje('Sesión iniciada correctamente.');
       setColor('text-success');
+      navigate('/panell');
     } else {
       setMensaje('Correo o contraseña incorrectos');
       setColor('text-danger');

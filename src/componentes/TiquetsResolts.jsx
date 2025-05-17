@@ -6,7 +6,9 @@ import Comentaris from './Comentaris';
 const TiquetsResolts = () => {
   const [tiquets, setTiquets] = useState([]);
   const [mostrarComentaris, setMostrarComentaris] = useState(null);
-
+  const usuari = JSON.parse(localStorage.getItem('usuari_actual'));
+  const esAdmin = usuari.rol === 'administrador';
+  
   useEffect(() => {
     const dades = JSON.parse(localStorage.getItem('dades_tiquets')) || [];
     const resueltos = dades.filter(t => t.resuelto);
@@ -14,14 +16,11 @@ const TiquetsResolts = () => {
   }, []);
 
   const eliminarTiquet = (id) => {
+    if (!esAdmin) return;
     const datosActuales = JSON.parse(localStorage.getItem('dades_tiquets')) || [];
     const nuevosDatos = datosActuales.filter(t => t.id !== id);
     localStorage.setItem('dades_tiquets', JSON.stringify(nuevosDatos));
     setTiquets(nuevosDatos.filter(t => t.resuelto));
-  };
-
-  const verComentarios = (id) => {
-    setMostrarComentaris(mostrarComentaris === id ? null : id);
   };
 
   return (
@@ -44,38 +43,37 @@ const TiquetsResolts = () => {
         </thead>
         <tbody>
           {tiquets.map(t => (
-            <React.Fragment key={t.id}>
-              <tr>
-                <td>{t.id}</td>
-                <td>{t.fecha}</td>
-                <td>{t.fechaResuelto}</td>
-                <td>{t.aula}</td>
-                <td>{t.grupo}</td>
-                <td>{t.ordenador}</td>
-                <td>{t.descripcion}</td>
-                <td>{t.alumno}</td>
-                <td>
-                  <button className="btn btn-info" title="Ver comentarios" onClick={() => verComentarios(t.id)}>
-                    <i className="bi bi-chat-left-text"></i>
-                  </button>
-                </td>
-                <td>
-                  <button className="btn btn-danger" title="Eliminar ticket" onClick={() => eliminarTiquet(t.id)}>
-                    <i className="bi bi-trash3"></i>
-                  </button>
-                </td>
-              </tr>
-              {mostrarComentaris === t.id && (
-                <tr>
-                  <td colSpan="10">
-                    <Comentaris ticketId={t.id} />
-                  </td>
-                </tr>
-              )}
-            </React.Fragment>
+            <tr key={t.id}>
+              <td>{t.id}</td>
+              <td>{t.fecha}</td>
+              <td>{t.fechaResuelto}</td>
+              <td>{t.aula}</td>
+              <td>{t.grupo}</td>
+              <td>{t.ordenador}</td>
+              <td>{t.descripcion}</td>
+              <td>{t.alumno}</td>
+              <td>
+                <button className="btn btn-info" title="Ver comentarios" onClick={() => setMostrarComentaris(t.id)}>
+                  <i className="bi bi-chat-left-text"></i>
+                </button>
+              </td>
+              <td>
+                <button className="btn btn-danger" title={esAdmin ? "Eliminar ticket" : "Solo el administrador puede eliminar"} onClick={() => eliminarTiquet(t.id)} disabled={!esAdmin}>
+                  <i className="bi bi-trash3"></i>
+                </button>
+              </td>
+            </tr>
           ))}
         </tbody>
       </table>
+
+      {mostrarComentaris && (
+        <div className="mt-4">
+          <h4>Comentarios del ticket {mostrarComentaris}</h4>
+          <Comentaris ticketId={mostrarComentaris} />
+          <button className="btn btn-secondary mt-2" onClick={() => setMostrarComentaris(null)}>Cerrar</button>
+        </div>
+      )}
     </main>
   );
 };

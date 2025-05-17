@@ -9,6 +9,9 @@ const TiquetsPendents = () => {
   const [mostrarComentari, setMostrarComentari] = useState(null);
   const [mostrarComentaris, setMostrarComentaris] = useState(null);
 
+  const usuari = JSON.parse(localStorage.getItem('usuari_actual'));
+  const esAdmin = usuari.rol === 'administrador';
+
   useEffect(() => {
     const dadesGuardades = JSON.parse(localStorage.getItem('dades_tiquets')) || [];
 
@@ -47,6 +50,14 @@ const TiquetsPendents = () => {
     setTiquets(nuevos.filter(t => !t.resuelto));
   };
 
+  const eliminarTiquet = (id) => {
+    if (!esAdmin) return;
+    const datosActuales = JSON.parse(localStorage.getItem('dades_tiquets')) || [];
+    const nuevosDatos = datosActuales.filter(t => t.id !== id);
+    localStorage.setItem('dades_tiquets', JSON.stringify(nuevosDatos));
+    setTiquets(nuevosDatos.filter(t => !t.resuelto));
+  };
+
   return (
     <main className="container mt-5">
       <h2>Tickets pendientes</h2>
@@ -77,10 +88,11 @@ const TiquetsPendents = () => {
               <td>{t.descripcion}</td>
               <td>{t.alumno}</td>
               <td>
-                <button className="btn btn-success" onClick={() => marcarResuelto(t.id)} title="Resolver ticket">
+                <button className="btn btn-success" onClick={() => marcarResuelto(t.id)} title={esAdmin ? "Resolver ticket" : "Solo el administrador puede resolver"} disabled={!esAdmin}>
                   Resolver
                 </button>
               </td>
+
               <td>
                 <button className="btn btn-warning" title="Añadir comentario" onClick={() => setMostrarComentari(t.id)}>
                   <i className="bi bi-pencil"></i>
@@ -92,7 +104,7 @@ const TiquetsPendents = () => {
                 </button>
               </td>
               <td>
-                <button className="btn btn-danger" title="Eliminar ticket">
+                <button className="btn btn-danger" title={esAdmin ? "Eliminar ticket" : "Solo el administrador puede eliminar"} onClick={() => eliminarTiquet(t.id)} disabled={!esAdmin}>
                   <i className="bi bi-trash3"></i>
                 </button>
               </td>
@@ -104,13 +116,13 @@ const TiquetsPendents = () => {
       {mostrarComentari && (
         <div className="mt-4">
           <h4>Añadir comentario al ticket {mostrarComentari}</h4>
-          <Comentari ticketId={mostrarComentari} onClose={() => setMostrarComentari(null)} />
+          <Comentari ticketId={mostrarComentari} />
         </div>
       )}
 
       {mostrarComentaris && (
         <div className="mt-4">
-          <h4>Comentarios del ticket #{mostrarComentaris}</h4>
+          <h4>Comentarios del ticket {mostrarComentaris}</h4>
           <Comentaris ticketId={mostrarComentaris} />
           <button className="btn btn-secondary mt-2" onClick={() => setMostrarComentaris(null)}>Cerrar</button>
         </div>

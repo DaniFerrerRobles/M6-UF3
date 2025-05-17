@@ -6,7 +6,7 @@ const Comentaris = ({ ticketId }) => {
   useEffect(() => {
     const dades = JSON.parse(localStorage.getItem('dades_tiquets')) || [];
     const ticket = dades.find(t => t.id === ticketId);
-    setComentaris(ticket?.comentarios || []);
+    setComentaris(ticket.comentarios || []);
   }, [ticketId]);
 
   return (

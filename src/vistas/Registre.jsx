@@ -1,6 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const RegistroUsuarios = () => {
+  const navigate = useNavigate();
+
   const manejarRegistro = (event) => {
     event.preventDefault();
 
@@ -32,6 +35,9 @@ const RegistroUsuarios = () => {
 
       mensaje.innerHTML = 'Registrado correctamente!';
       mensaje.className = 'mt-3 text-center text-success';
+  
+        navigate('/login');
+  
     } else {
       mensaje.innerHTML = 'FALTAN CAMPOS POR RELLENAR';
       mensaje.className = 'mt-3 text-center text-danger';
@@ -47,43 +53,16 @@ const RegistroUsuarios = () => {
           className="form p-4 border shadow mt-5 mx-auto"
           style={{ width: '400px' }}
         >
-          <label htmlFor="nom" className="mt-2 form-label">
-            Nombre:
-          </label>
-          <input
-            id="nom"
-            type="text"
-            className="form-control"
-            placeholder="Tu nombre"
-            required
-          />
+          <label htmlFor="nom" className="mt-2 form-label">Nombre:</label>
+          <input id="nom" type="text" className="form-control" placeholder="Tu nombre" required />
 
-          <label htmlFor="email" className="mt-2 form-label">
-            Email:
-          </label>
-          <input
-            id="email"
-            type="email"
-            className="form-control"
-            placeholder="usuario@mail.com"
-            required
-          />
+          <label htmlFor="email" className="mt-2 form-label">Email:</label>
+          <input id="email" type="email" className="form-control" placeholder="usuario@mail.com" required />
 
-          <label htmlFor="contrasena" className="mt-2 form-label">
-            Contraseña:
-          </label>
-          <input
-            id="contrasena"
-            type="password"
-            className="form-control"
-            placeholder="Introduce tu contraseña"
-            required
-          />
+          <label htmlFor="contrasena" className="mt-2 form-label">Contraseña:</label>
+          <input id="contrasena" type="password" className="form-control" placeholder="Introduce tu contraseña" required />
 
-          <button type="submit" className="mt-4 w-100 btn btn-primary">
-            Registrar
-          </button>
-
+          <button type="submit" className="mt-4 w-100 btn btn-primary">Registrar</button>
           <p id="mensaje"></p>
         </form>
       </div>

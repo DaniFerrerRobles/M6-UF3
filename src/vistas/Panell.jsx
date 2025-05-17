@@ -2,7 +2,7 @@ import React from 'react';
 import TiquetsPendents from '../componentes/TiquetsPendents';
 import TiquetsResolts from '../componentes/TiquetsResolts';
 
-const Panel = () => {
+const Panell = () => {
   return (
     <div>
       <TiquetsPendents />
@@ -11,4 +11,4 @@ const Panel = () => {
   );
 };
 
-export default Panel;
+export default Panell;
