@@ -36,7 +36,9 @@ const RegistroUsuarios = () => {
       mensaje.innerHTML = 'Registrado correctamente!';
       mensaje.className = 'mt-3 text-center text-success';
   
-        navigate('/login');
+        setTimeout(() => {
+          navigate('/login');
+        }, 2000);
   
     } else {
       mensaje.innerHTML = 'FALTAN CAMPOS POR RELLENAR';
