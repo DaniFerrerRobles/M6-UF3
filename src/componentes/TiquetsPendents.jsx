@@ -3,12 +3,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import Comentari from './Comentari';
 import Comentaris from './Comentaris';
-import TiquetsResolts from './TiquetsResolts';
 
 const TiquetsPendents = () => {
   const [tiquets, setTiquets] = useState([]);
   const [mostrarComentari, setMostrarComentari] = useState(null);
   const [mostrarComentaris, setMostrarComentaris] = useState(null);
+
+  const usuari = JSON.parse(localStorage.getItem('usuari_actual'));
+  const esAdmin = usuari.rol === 'administrador';
 
   useEffect(() => {
     const dadesGuardades = JSON.parse(localStorage.getItem('dades_tiquets')) || [];
@@ -46,6 +48,14 @@ const TiquetsPendents = () => {
 
     localStorage.setItem('dades_tiquets', JSON.stringify(nuevos));
     setTiquets(nuevos.filter(t => !t.resuelto));
+  };
+
+  const eliminarTiquet = (id) => {
+    if (!esAdmin) return;
+    const datosActuales = JSON.parse(localStorage.getItem('dades_tiquets')) || [];
+    const nuevosDatos = datosActuales.filter(t => t.id !== id);
+    localStorage.setItem('dades_tiquets', JSON.stringify(nuevosDatos));
+    setTiquets(nuevosDatos.filter(t => !t.resuelto));
   };
 
   return (
@@ -93,7 +103,7 @@ const TiquetsPendents = () => {
                 </button>
               </td>
               <td>
-                <button className="btn btn-danger" title="Eliminar ticket" onClick={() => eliminarTiquet(t.id)}>
+                <button className="btn btn-danger" title={esAdmin ? "Eliminar ticket" : "Solo el administrador puede eliminar"} onClick={() => eliminarTiquet(t.id)} disabled={!esAdmin}>
                   <i className="bi bi-trash3"></i>
                 </button>
               </td>

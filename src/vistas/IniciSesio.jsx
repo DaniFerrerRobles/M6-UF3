@@ -15,7 +15,7 @@ const IniciSesio = () => {
     );
 
     if (usuari) {
-      localStorage.setItem('usuari_actual', JSON.stringify({ email: usuari.email }));
+      localStorage.setItem('usuari_actual', JSON.stringify({ email: usuari.email, rol: usuari.rol }));
       setMensaje('Sesión iniciada correctamente.');
       setColor('text-success');
     } else {

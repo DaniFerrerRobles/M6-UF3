@@ -6,7 +6,9 @@ import Comentaris from './Comentaris';
 const TiquetsResolts = () => {
   const [tiquets, setTiquets] = useState([]);
   const [mostrarComentaris, setMostrarComentaris] = useState(null);
-
+  const usuari = JSON.parse(localStorage.getItem('usuari_actual'));
+  const esAdmin = usuari.rol === 'administrador';
+  
   useEffect(() => {
     const dades = JSON.parse(localStorage.getItem('dades_tiquets')) || [];
     const resueltos = dades.filter(t => t.resuelto);
@@ -14,6 +16,7 @@ const TiquetsResolts = () => {
   }, []);
 
   const eliminarTiquet = (id) => {
+    if (!esAdmin) return;
     const datosActuales = JSON.parse(localStorage.getItem('dades_tiquets')) || [];
     const nuevosDatos = datosActuales.filter(t => t.id !== id);
     localStorage.setItem('dades_tiquets', JSON.stringify(nuevosDatos));
@@ -50,20 +53,12 @@ const TiquetsResolts = () => {
               <td>{t.descripcion}</td>
               <td>{t.alumno}</td>
               <td>
-                <button
-                  className="btn btn-info"
-                  title="Ver comentarios"
-                  onClick={() => setMostrarComentaris(t.id)}
-                >
+                <button className="btn btn-info" title="Ver comentarios" onClick={() => setMostrarComentaris(t.id)}>
                   <i className="bi bi-chat-left-text"></i>
                 </button>
               </td>
               <td>
-                <button
-                  className="btn btn-danger"
-                  title="Eliminar ticket"
-                  onClick={() => eliminarTiquet(t.id)}
-                >
+                <button className="btn btn-danger" title={esAdmin ? "Eliminar ticket" : "Solo el administrador puede eliminar"} onClick={() => eliminarTiquet(t.id)} disabled={!esAdmin}>
                   <i className="bi bi-trash3"></i>
                 </button>
               </td>
@@ -76,12 +71,7 @@ const TiquetsResolts = () => {
         <div className="mt-4">
           <h4>Comentarios del ticket {mostrarComentaris}</h4>
           <Comentaris ticketId={mostrarComentaris} />
-          <button
-            className="btn btn-secondary mt-2"
-            onClick={() => setMostrarComentaris(null)}
-          >
-            Cerrar
-          </button>
+          <button className="btn btn-secondary mt-2" onClick={() => setMostrarComentaris(null)}>Cerrar</button>
         </div>
       )}
     </main>

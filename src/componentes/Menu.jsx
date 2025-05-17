@@ -16,9 +16,9 @@ const Menu = () => {
               <span className="navbar-brand">Gestión de incidencias FPLLEFIA</span>
 
               <div>
-                <Link to="/" className="btn btn-secondary ms-2">PANEL</Link>
+                <Link to="/panell" className="btn btn-secondary ms-2">PANEL</Link>
                 <Link to="/iniciSesio" className="btn btn-secondary ms-2">LOGIN</Link>
-                <Link to="/registre" className="btn btn-secondary ms-2">REGISTRO</Link>
+                <Link to="/" className="btn btn-secondary ms-2">REGISTRO</Link>
                 <Link to="/gestioUsuaris" className="btn btn-secondary ms-2">GESTIÓN USUARIOS</Link>
                 <Link to="/logout" className="btn btn-danger ms-2">Cerrar Sesión</Link>
               </div>
@@ -29,8 +29,8 @@ const Menu = () => {
         <main className="container mt-4">
           <Routes>
             <Route path="/iniciSesio" element={<IniciSesio />} />
-            <Route path="/registre" element={<RegistroUsuarios />} />
-            <Route path="/" element={<Panell />} />
+            <Route path="/" element={<RegistroUsuarios />} />
+            <Route path="/panell" element={<Panell />} />
             <Route path="/logout" element={<Logout />} />
             <Route path="/gestioUsuaris" element={<GestioUsuaris />} />
           </Routes>
