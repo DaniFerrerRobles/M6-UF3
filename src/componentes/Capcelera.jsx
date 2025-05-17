@@ -1,11 +1,21 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useEffect, useState } from 'react';
 
-export default function Navbar() {
+const BarraNavegacio = () => {
+  const [usuariEmail, setUsuariEmail] = useState('');
+
+  useEffect(() => {
+    const usuari = JSON.parse(localStorage.getItem('usuari_actual'));
+    if (usuari && usuari.email) {
+      setUsuariEmail(usuari.email);
+    }
+  }, []);
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary shadow">
-      <div className="container">
-        <a className="navbar-brand" href="#">Gestió d’incidències FPLLEFIA</a>
-      </div>
+    <nav>
+      <h1>GESTION DE INCIDENCIAS</h1>
+      {usuariEmail && <p>Bienvenido, {usuariEmail}</p>}
     </nav>
   );
-}
+};
+
+export default BarraNavegacio;

@@ -2,65 +2,92 @@ import React from 'react';
 
 const RegistroUsuarios = () => {
   const manejarRegistro = (event) => {
-    const nombre = document.querySelector('#nombre').value;
-    const grupo = document.querySelector('#grupo').value;
+    event.preventDefault();
+
+    const nom = document.querySelector('#nom').value;
     const email = document.querySelector('#email').value;
-    const contraseña = document.querySelector('#contraseña').value;
+    const contrasena = document.querySelector('#contrasena').value;
     const mensaje = document.querySelector('#mensaje');
 
-    if (nombre && grupo && email && contraseña) {
-      const nuevoUsuario = { id: Date.now().toString(), nombre, grupo, email, contraseña };
-      mensaje.innerHTML = 'Registrado!!!';
+    if (nom && email && contrasena) {
+      const nuevoUsuario = {
+        id: Date.now().toString(),
+        nom,
+        email,
+        contrasena,
+        rol: 'usuari'
+      };
+
+      const usuariosExistentes = JSON.parse(localStorage.getItem('dades_usuaris')) || [];
+
+      const yaRegistrado = usuariosExistentes.some((u) => u.email === email);
+      if (yaRegistrado) {
+        mensaje.innerHTML = 'Este correo ya existe';
+        mensaje.className = 'mt-3 text-center text-danger';
+        return;
+      }
+
+      usuariosExistentes.push(nuevoUsuario);
+      localStorage.setItem('dades_usuaris', JSON.stringify(usuariosExistentes));
+
+      mensaje.innerHTML = 'Registrado correctamente!';
+      mensaje.className = 'mt-3 text-center text-success';
     } else {
       mensaje.innerHTML = 'FALTAN CAMPOS POR RELLENAR';
+      mensaje.className = 'mt-3 text-center text-danger';
     }
   };
 
   return (
-    <div>
-      <h2>Registre d'Usuaris</h2>
-      <form onSubmit={manejarRegistro}>
-        <div>
-          <label>Nom:</label>
-          <input 
-            id="nombre"
-            type="text" 
-            placeholder="Introduce tu nombre" 
-            required 
+    <main className="container mt-5">
+      <div className="pt-5">
+        <h1 className="w-100 text-center">Registro</h1>
+        <form
+          onSubmit={manejarRegistro}
+          className="form p-4 border shadow mt-5 mx-auto"
+          style={{ width: '400px' }}
+        >
+          <label htmlFor="nom" className="mt-2 form-label">
+            Nombre:
+          </label>
+          <input
+            id="nom"
+            type="text"
+            className="form-control"
+            placeholder="Tu nombre"
+            required
           />
-        </div>
-        <div>
-          <label>Grupo:</label>
-          <input 
-            id="grupo"
-            type="text" 
-            placeholder="Introduce tu grupo" 
-            required 
-          />
-        </div>
-        <div>
-          <label>Email:</label>
-          <input 
-            id="email"
-            type="email" 
-            placeholder="Introduce tu email" 
-            required 
-          />
-        </div>
-        <div>
-          <label>Contraseña:</label>
-          <input 
-            id="contraseña"
-            type="password" 
-            placeholder="Introduce tu contraseña" 
-            required 
-          />
-        </div>
-        <button type="submit">Registrar</button>
-      </form>
 
-      <p id="mensaje"></p>
-    </div>
+          <label htmlFor="email" className="mt-2 form-label">
+            Email:
+          </label>
+          <input
+            id="email"
+            type="email"
+            className="form-control"
+            placeholder="usuario@mail.com"
+            required
+          />
+
+          <label htmlFor="contrasena" className="mt-2 form-label">
+            Contraseña:
+          </label>
+          <input
+            id="contrasena"
+            type="password"
+            className="form-control"
+            placeholder="Introduce tu contraseña"
+            required
+          />
+
+          <button type="submit" className="mt-4 w-100 btn btn-primary">
+            Registrar
+          </button>
+
+          <p id="mensaje"></p>
+        </form>
+      </div>
+    </main>
   );
 };
 

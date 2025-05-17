@@ -3,33 +3,41 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Panell from '../vistas/Panell';
 import RegistroUsuarios from '../vistas/Registre';
 import IniciSesio from '../vistas/IniciSesio';
+import Logout from '../vistas/CierreSesio';
+import GestioUsuaris from '../vistas/GestioUsuaris';
 
 const Menu = () => {
-    return (
-        <Router>
-            <div>
-                <nav>
-                    <ul>
-                        <li>
-                            <Link to="/inicisesio">Iniciar Sesión</Link>
-                        </li>
-                        <li>
-                            <Link to="/registre">Regístrarse</Link>
-                        </li>
-                        <li>
-                            <Link to="/panell">Panel</Link>
-                        </li>
-                    </ul>
-                </nav>
+  return (
+    <Router>
+      <div>
+        <header>
+          <nav className="navbar navbar-light bg-light">
+            <div className="container-fluid">
+              <span className="navbar-brand">Gestión de incidencias FPLLEFIA</span>
 
-                <Routes>
-                    <Route path="/iniciSesio" element={<IniciSesio />} />
-                    <Route path="/Registre" element={<RegistroUsuarios />} />
-                    <Route path="/Panell" element={<Panell />} />
-                </Routes>
+              <div>
+                <Link to="/" className="btn btn-secondary ms-2">PANEL</Link>
+                <Link to="/iniciSesio" className="btn btn-secondary ms-2">LOGIN</Link>
+                <Link to="/registre" className="btn btn-secondary ms-2">REGISTRO</Link>
+                <Link to="/gestioUsuaris" className="btn btn-secondary ms-2">GESTIÓN USUARIOS</Link>
+                <Link to="/logout" className="btn btn-danger ms-2">Cerrar Sesión</Link>
+              </div>
             </div>
-        </Router>
-    );
+          </nav>
+        </header>
+
+        <main className="container mt-4">
+          <Routes>
+            <Route path="/iniciSesio" element={<IniciSesio />} />
+            <Route path="/registre" element={<RegistroUsuarios />} />
+            <Route path="/" element={<Panell />} />
+            <Route path="/logout" element={<Logout />} />
+            <Route path="/gestioUsuaris" element={<GestioUsuaris />} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
+  );
 };
 
 export default Menu;
